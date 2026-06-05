@@ -85,6 +85,39 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // ─── DYNAMIC CHECKOUT URL DECORATOR (UTMs & Facebook Cookies) ───
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  function decorateCheckoutLinks() {
+    const fbp = getCookie('_fbp');
+    const fbc = getCookie('_fbc');
+    const urlParams = new URLSearchParams(window.location.search);
+
+    document.querySelectorAll('a[href*="pay.lowify.com.br"]').forEach(link => {
+      try {
+        const url = new URL(link.href);
+        // Forward all URL tracking parameters (UTMs, xcod, src)
+        urlParams.forEach((val, key) => {
+          url.searchParams.set(key, val);
+        });
+        // Forward Facebook session cookies for Conversions API matching
+        if (fbp && !url.searchParams.has('fbp')) url.searchParams.set('fbp', fbp);
+        if (fbc && !url.searchParams.has('fbc')) url.searchParams.set('fbc', fbc);
+        link.href = url.toString();
+      } catch (e) {
+        console.error("Error decorating checkout link:", e);
+      }
+    });
+  }
+  // Run on load and after short delays to ensure all dynamic actions are captured
+  decorateCheckoutLinks();
+  setTimeout(decorateCheckoutLinks, 500);
+  setTimeout(decorateCheckoutLinks, 1500);
 });
 
 // ─── FAQ ACCORDION ───
