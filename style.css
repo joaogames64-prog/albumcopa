@@ -39,7 +39,7 @@ a{text-decoration:none;color:inherit}
 .hero h1 .highlight{background:var(--gradient-cta);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .highlight-gold{color:var(--gold);font-weight:800}
 .highlight-pink{color:var(--pink);font-weight:800}
-.hero-subtitle{font-size:14px;color:var(--text-muted);margin-bottom:20px;position:relative;z-index:1;max-width:340px;margin-left:auto;margin-right:auto}
+.hero-subtitle{font-size:14px;color:var(--text-muted);margin-top:12px;margin-bottom:20px;position:relative;z-index:1;max-width:340px;margin-left:auto;margin-right:auto}
 .hero-trust{display:flex;justify-content:center;gap:16px;font-size:11px;color:var(--text-muted);position:relative;z-index:1;flex-wrap:wrap}
 .hero-trust span{display:flex;align-items:center;gap:4px}
 .hero-trust .icon{color:var(--green)}
